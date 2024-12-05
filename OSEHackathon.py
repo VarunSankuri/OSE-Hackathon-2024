@@ -2,7 +2,7 @@ import streamlit as st
 from langchain.prompts import PromptTemplate
 from langchain.chains.question_answering import load_qa_chain
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community.vectorstores import Chroma
+from langchain.vectorstores import Chroma
 from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI
 from dotenv import load_dotenv
 import PyPDF2
@@ -10,7 +10,7 @@ import os
 import io
 from langchain_community.vectorstores import Chroma
 import pysqlite3  # Add this import
-import sys      # Add this import
+import sys       # Add this import
 
 # Swap sqlite3 with pysqlite3-binary
 sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
@@ -23,7 +23,7 @@ st.title("OSE Hackathon")
 st.markdown("""
 <style>
 .big-font {
-    font-size:20px !important;
+  font-size:20px !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -42,7 +42,7 @@ if google_api_key is None:
     st.stop()
 
 tab1, tab2 = st.tabs(
-    ["Chat Bot", "Upload PDF Files"]
+    [ "Chat Bot","Upload PDF Files"]
 )
 
 with tab2:
@@ -101,39 +101,20 @@ with tab1:
             docs = []  # No documents to provide
 
         # Define Prompt Template
-        if uploaded_files:
-            prompt_template = """
-            
-            Context:\n {context}?\n
-            
-            Question: \n{question}\n
-            
-            You are a helpful AI assistant helping people answer their Cloud development and
-            deployment questions. Answer the question as detailed as possible from the provided context in a serious and technical tone,
-            make sure to provide all available details and code if possible, if the answer is not in
-            provided context use your  knowledge or imagine an answer but never say that you don't have an answer
-            or can't provide an answer based on current context ",
+        prompt_template = """
+        You are a helpful AI assistant helping people answer their Cloud development and
+        deployment questions. Answer the question as detailed as possible from the provided context,
+        make sure to provide all the details and code if possible, if the answer is not in
+        provided context use your  knowledge or imagine an answer but never say that you don't have an answer
+        or can't provide an answer based on current context ",
 
-            
-            
-            Answer:
-            """
-        else:
-            prompt_template = """
-            
-            Question: \n{question}\n
-            
-            You are a helpful AI assistant helping people answer their questions. If the question is Cloud development or deployment related then Answer the question as detailed as possible.
-            If the question is not Cloud development or deployment related, answer in a funny tone and add a joke at the end",
-            
-            Answer:
-            """
+        Context:\n {context}?\n
+        Question: \n{question}\n
+        Answer:
+        """
 
         # Create Prompt
-        if uploaded_files:
-            prompt = PromptTemplate(template=prompt_template, input_variables=['context', 'question'])
-        else:
-            prompt = PromptTemplate(template=prompt_template, input_variables=['question'])
+        prompt = PromptTemplate(template=prompt_template, input_variables=['context', 'question'])
 
         # Load QA Chain
         model = ChatGoogleGenerativeAI(model="gemini-pro", temperature=1, api_key=google_api_key)
