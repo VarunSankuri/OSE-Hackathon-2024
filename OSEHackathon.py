@@ -130,7 +130,10 @@ with tab1:
         """
 
         # Create Prompt
-        prompt = PromptTemplate(template=prompt_template, input_variables=['context', 'question'])
+         if uploaded_files:
+           prompt = PromptTemplate(template=prompt_template, input_variables=['context', 'question'])
+         else:
+           prompt = PromptTemplate(template=prompt_template, input_variables=['question'])
 
         # Load QA Chain
         model = ChatGoogleGenerativeAI(model="gemini-pro", temperature=1, api_key=google_api_key)
