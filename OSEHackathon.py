@@ -104,13 +104,17 @@ with tab1:
         prompt_template = """
         Question: \n{question}\n
 
-        Context:\n {context}?\n
         
-        You are a helpful AI assistant helping people answer their Cloud development and
+        
+        "You are a helpful AI assistant helping people answer their Cloud development and
         deployment questions. Answer the question as detailed as possible from the provided context,
         make sure to provide all the details and code if possible, if the answer is not in
         provided context use your  knowledge or imagine an answer but never say that you don't have an answer
-        or can't provide an answer based on current context ",
+        or can't provide an answer based on current context " /n
+
+        Context:\n {context}?\n
+
+        
       
         Answer:
         """
