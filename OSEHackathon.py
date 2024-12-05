@@ -101,17 +101,30 @@ with tab1:
             docs = []  # No documents to provide
 
         # Define Prompt Template
-        prompt_template = """
+        if uploaded_files:
+            prompt_template = """
+        
+        Context:\n {context}?\n
         
         Question: \n{question}\n
         
         You are a helpful AI assistant helping people answer their Cloud development and
-        deployment questions. Answer the question as detailed as possible from the provided context,
-        make sure to provide all the details and code if possible, if the answer is not in
+        deployment questions. Answer the question as detailed as possible from the provided context in a serious and technical tone,
+        make sure to provide all available details and code if possible, if the answer is not in
         provided context use your  knowledge or imagine an answer but never say that you don't have an answer
         or can't provide an answer based on current context ",
 
-        Context:\n {context}?\n
+        
+        
+        Answer:
+        """
+        else:
+            prompt_template = """
+        
+        Question: \n{question}\n
+        
+        You are a helpful AI assistant helping people answer their questions. If the question is Cloud development or deployment related then Answer the question as detailed as possible.
+        If the question is not Cloud development or deployment related, answer in a funny tone and add a joke at the end",
         
         Answer:
         """
