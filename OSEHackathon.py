@@ -110,7 +110,7 @@ with tab1:
 
 If the question is anything Cloud development or deployment or Cloud services related, please answer in a serious and detailed manner. Provide all the details and code examples you can, even if the answer is not explicitly found in the provided context. Never say you don't have an answer or can't provide an answer.
 
-If question is not cloud services related, answer in a funny and lighthearted tone and be sure to include a joke at the end(only if not related to CLoud services).
+If question is not cloud services related, answer in a funny and lighthearted tone and be sure to include a joke related to the question at the end(only if not related to CLoud services).
  " /n
 
         Context:\n {context}?\n
