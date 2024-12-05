@@ -10,7 +10,7 @@ import os
 import io
 from langchain_community.vectorstores import Chroma
 import pysqlite3  # Add this import
-import sys       # Add this import
+import sys      # Add this import
 
 # Swap sqlite3 with pysqlite3-binary
 sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
@@ -23,7 +23,7 @@ st.title("OSE Hackathon")
 st.markdown("""
 <style>
 .big-font {
-  font-size:20px !important;
+    font-size:20px !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -42,7 +42,7 @@ if google_api_key is None:
     st.stop()
 
 tab1, tab2 = st.tabs(
-    [ "Chat Bot","Upload PDF Files"]
+    ["Chat Bot", "Upload PDF Files"]
 )
 
 with tab2:
@@ -103,37 +103,37 @@ with tab1:
         # Define Prompt Template
         if uploaded_files:
             prompt_template = """
-        
-        Context:\n {context}?\n
-        
-        Question: \n{question}\n
-        
-        You are a helpful AI assistant helping people answer their Cloud development and
-        deployment questions. Answer the question as detailed as possible from the provided context in a serious and technical tone,
-        make sure to provide all available details and code if possible, if the answer is not in
-        provided context use your  knowledge or imagine an answer but never say that you don't have an answer
-        or can't provide an answer based on current context ",
+            
+            Context:\n {context}?\n
+            
+            Question: \n{question}\n
+            
+            You are a helpful AI assistant helping people answer their Cloud development and
+            deployment questions. Answer the question as detailed as possible from the provided context in a serious and technical tone,
+            make sure to provide all available details and code if possible, if the answer is not in
+            provided context use your  knowledge or imagine an answer but never say that you don't have an answer
+            or can't provide an answer based on current context ",
 
-        
-        
-        Answer:
-        """
+            
+            
+            Answer:
+            """
         else:
             prompt_template = """
-        
-        Question: \n{question}\n
-        
-        You are a helpful AI assistant helping people answer their questions. If the question is Cloud development or deployment related then Answer the question as detailed as possible.
-        If the question is not Cloud development or deployment related, answer in a funny tone and add a joke at the end",
-        
-        Answer:
-        """
+            
+            Question: \n{question}\n
+            
+            You are a helpful AI assistant helping people answer their questions. If the question is Cloud development or deployment related then Answer the question as detailed as possible.
+            If the question is not Cloud development or deployment related, answer in a funny tone and add a joke at the end",
+            
+            Answer:
+            """
 
         # Create Prompt
-         if uploaded_files:
-             prompt = PromptTemplate(template=prompt_template, input_variables=['context', 'question'])
-         else:
-             prompt = PromptTemplate(template=prompt_template, input_variables=['question'])
+        if uploaded_files:
+            prompt = PromptTemplate(template=prompt_template, input_variables=['context', 'question'])
+        else:
+            prompt = PromptTemplate(template=prompt_template, input_variables=['question'])
 
         # Load QA Chain
         model = ChatGoogleGenerativeAI(model="gemini-pro", temperature=1, api_key=google_api_key)
